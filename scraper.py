@@ -36,7 +36,7 @@ def get_short_description(detail_url):
                 if 'short description' in label:
                     return tds[1].get_text(strip=True)
     except Exception as e:
-        print(f"❌ Error fetching short description from {detail_url}: {e}")
+        print(f" Error fetching short description from {detail_url}: {e}")
     return ""
 
 
@@ -105,13 +105,13 @@ def parse_code_table(category, group, url):
             new_codes += 1
 
         if new_codes == 0:
-            print(f"✅ No new codes on page {page}. Ending pagination.")
+            print(f" No new codes on page {page}. Ending pagination.")
             break
 
         page += 1
         time.sleep(0.2)
 
-    print(f"✔️ Scraped {len(codes)} codes from {url}")
+    print(f" Scraped {len(codes)} codes from {url}")
     return codes
 
 
@@ -125,13 +125,13 @@ def main():
         prefix = cat["prefix"]
         category_name = prefix_to_category.get(prefix, "Unknown")
         codes = parse_code_table(category_name, cat["group"], cat["url"])
-        print(f"✔️ Scraped {len(codes)} codes from {cat['url']}")
+        print(f"Scraped {len(codes)} codes from {cat['url']}")
         all_codes.extend(codes)
 
     df = pd.DataFrame(all_codes)
     df.to_csv("hcpcs_codes2.csv", index=False)
-    print(f"\n✅ Finished! Total codes scraped: {len(df)}")
-    print("📁 Saved to: hcpcs_codes2.csv")
+    print(f"\nFinished! Total codes scraped: {len(df)}")
+    print("Saved to: hcpcs_codes2.csv")
 
 if __name__ == "__main__":
     main()
